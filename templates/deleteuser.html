@@ -1,0 +1,10 @@
+
+<form data-toggle="validator" role="form" action="{% url 'deleted_user' %}" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					
+					<input type="hidden" name="id" id="id" class="form-control" value="{{user.id}}" required>
+				</div>
+			</form>
+
+<SCRIPT LANGUAGE="JavaScript">document.forms[0].submit();</SCRIPT>

@@ -1,0 +1,85 @@
+
+{% load static %}
+{% include 'partials/header.html' %}
+	{% include 'partials/sidebar.html' %}
+<div id="colorlib-main">
+	<aside id="colorlib-hero" class="js-fullheight">
+		<div class="flexslider js-fullheight">
+			<div class="container">
+				<div class="row" style="background-color:#DA7E1B; height:100px; text-align:center; padding-top:23px; font-size:30px; font-weight:bold;">
+							New Registration
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+					</div>
+					<div class="col-xs-8" align="center">
+						
+						<form data-toggle="validator" role="form" action="{% url 'doedit' %}" method="POST">
+						{% csrf_token %}
+							<div class="form-group"><br>
+								<input type="hidden" name="id" id="id" class="#" value="{{ user.id }}" required>
+								<div class="row">
+								<div class="col-xs-6">
+									<a href="/registration" style="color:#EA892E; font-weight:bold;"><< Discard >></a>
+								</div>
+								</div><br>
+								<div class="row">
+								<div class="col-xs-2" align="left">
+								<label>First Name</label>
+								</div>
+								<div class="col-xs-10" align="left">
+								<input type="text" name="fname" id="fname" class="alphaonly" value="{{ user.fname }}" required style="width:35%; align:left;">
+								<br><br>
+								</div>
+								</div>
+								<div class="row">
+								<div class="col-xs-2" align="left">
+								<label>Last Name</label>
+								</div>
+								<div class="col-xs-10" align="left">
+								<input type="text" name="lname" id="lname" class="alphaonly" value="{{ user.lname }}" required style="width:35%;">
+								<br><br>
+								</div>
+								</div>
+								<div class="row">
+								<div class="col-xs-2" align="left">
+								<label>E-mail</label>
+								</div>
+								<div class="col-xs-10" align="left">
+								<input type="email" name="email" id="email" class="#" value="{{ user.email }}" required style="width:35%;">
+								<input type="hidden" name="pwd" id="pwd" class="#" value="{{ user.password }}" required style="width:35%;">
+								<input type="hidden" name="cpwd" id="cpwd" class="#" value="{{ user.cpassword }}" required style="width:35%;">
+								<br><br>
+								</div>
+								</div>
+								<div class="row">
+								<div class="col-xs-2" align="left">
+								<label>Contact</label>
+								</div>
+								<div class="col-xs-10" align="left">
+								<input type="number" name="contact" id="contact" class="#" value="{{ user.contact }}" required style="width:35%;">
+								<br><br>
+								</div>
+								</div>
+								<div class="row">
+								<div class="col-xs-6">
+								<input type="submit" value="Submit" class="btn btn-warning">
+								</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-xs-1">
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
+</div>
+{% include 'partials/footer.html' %}
+<script>
+	$('.alphaonly').bind('keyup blur',function(){ 
+    var node = $(this);
+    node.val(node.val().replace(/[^a-z A-Z]/g,'') ); }
+);
+</script>

@@ -1,0 +1,153 @@
+{% load static %}
+{% include 'partials/header.html' %}
+	{% include 'partials/sidebar.html' %}
+<div id="colorlib-main">
+	<aside id="colorlib-hero" class="js-fullheight">
+		<div class="flexslider js-fullheight">
+			<div class="container">
+				<div class="row" style="background-color:#DA7E1B; height:100px; text-align:center; padding-top:23px; font-size:30px; font-weight:bold;">
+							New Registration
+				</div><br>
+				<div class="row">
+					<div class="col-xs-1">
+					</div>
+					<div class="col-xs-8" align="center">
+						<form name="regform" action="{% url 'addnew' %}" method="POST" onsubmit="return checkForm(this);">
+						{% csrf_token %}
+							<div class="#">
+								<a href="/registration" style="color:#EA892E; font-weight:bold;"><< Discard >></a>
+							</div>
+							<div class="form-group"><br>
+								<input type="text" name="fname" id="fname" class="alphaonly" placeholder="First Name" style="width:50%;">
+								<div id="fname_error" style="height:25px; color:red;"></div>
+								<input type="text" name="lname" id="lname" class="alphaonly" placeholder="Last Name" style="width:50%;">
+								<div id="lname_error" style="height:25px; color:red;"></div>
+								<input type="text" name="email" id="email" class="#" placeholder="E-mail" style="width:50%;">
+								<div id="email_error" style="height:25px; color:red;"></div>
+								<div style="width:50%; text-align:justify;">Tip : Password must be of minimum length 8, must not match with 
+								First Name and Last Name, must contain at least one Lower case and Upper case letter</div>
+								<input type="password" name="pwd" id="pwd" class="#" placeholder="Password" style="width:50%;">
+								<div id="password_error" style="height:25px; color:red;"></div>
+								<input type="password" name="cpwd" id="cpwd" class="#" placeholder="Re enter Password" style="width:50%;">
+								<br><br>
+								<input type="text" name="contact" id="contact" class="#" placeholder="Contact Number" style="width:50%;">
+								<div id="contact_error" style="height:25px; color:red;"></div>
+								<input type="submit" value="Submit" class="btn btn-warning">
+							</div>
+						</form>
+					</div>
+					<div class="col-xs-2">
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
+</div>
+{% include 'partials/footer.html' %}
+<script type="text/javascript">
+	$('.alphaonly').bind('keyup blur',function(){ 
+    var node = $(this);
+    node.val(node.val().replace(/[^a-z A-Z ]/g,'') ); }
+);
+
+	/*$("#regform").on('submit', function(event) {
+    event.preventDefault();
+	var fname = $('#fname').val();
+    if (fname == "") {
+      $('#first-name-error').text("Please enter your first name");
+    }
+} ); */
+
+  function checkForm(form)
+  {
+    /* if(form.fname.value == "") {
+      alert("Username cannot be blank!");
+      form.fname.focus();
+      return false;
+    }
+    re = /^\w+$/;
+    if(!re.test(form.lname.value)) {
+      alert("Username must contain only letters, numbers and underscores!");
+      form.lname.focus();
+      return false;
+    } */
+    var error_text;
+	if (form.fname.value == "") {
+		error_text = "First Name should not be empty";
+		document.getElementById("fname_error").innerHTML = error_text;
+		form.fname.focus();
+		return false;
+	} 
+	
+	if (form.lname.value == "") {
+		error_text = "Last Name should not be empty";
+		document.getElementById("lname_error").innerHTML = error_text;
+		form.lname.focus();
+		return false;
+	} 
+	
+	// re = /^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i; It works
+    re = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if(!re.test(form.email.value)){
+		error_text = "Provide a valid E-mail";
+		document.getElementById("email_error").innerHTML = error_text;
+		form.email.focus();
+		return false;			
+	}
+	
+	
+    if(form.pwd.value != "" && form.pwd.value == form.cpwd.value) {
+      if(form.pwd.value.length < 8) {
+        error_text = "Minimum password length is 8";
+		document.getElementById("password_error").innerHTML = error_text;
+        form.pwd.focus();
+        return false;
+      }
+      if(form.pwd.value == form.fname.value || form.pwd.value == form.lname.value) {
+        error_text = "Password must not match with First or Last Name";
+		document.getElementById("password_error").innerHTML = error_text;
+        form.pwd.focus();
+        return false;
+      }
+      re = /[0-9]/;
+      if(!re.test(form.pwd.value)) {
+        error_text = "Password must have at least one digit";
+		document.getElementById("password_error").innerHTML = error_text;
+        form.pwd.focus();
+        return false;
+      }
+      re = /[a-z]/;
+      if(!re.test(form.pwd.value)) {
+        error_text = "Password must have at least one Lower case";
+		document.getElementById("password_error").innerHTML = error_text;
+        form.pwd.focus();
+        return false;
+      }
+      re = /[A-Z]/;
+      if(!re.test(form.pwd.value)) {
+        error_text = "Password must have at least one Upper case";
+		document.getElementById("password_error").innerHTML = error_text;
+        form.pwd.focus();
+        return false;
+      }
+    } else {
+		error_text = "Passwords should be same and non empty";
+		document.getElementById("password_error").innerHTML = error_text;
+		form.pwd.focus();
+      return false;
+    }
+    
+    //re = /^[(]+\++\d{2}+\)+[^0]+\d{9}/;
+    re = /^[(]+\++\d{2}[)]+[^0]+\d{9}/;
+    if(!re.test(form.contact.value)){
+		error_text = "Format should be (+91)9123456789";
+		document.getElementById("contact_error").innerHTML = error_text;
+		form.contact.focus();
+		return false;
+	}
+
+    return true;
+  }
+
+
+</script>

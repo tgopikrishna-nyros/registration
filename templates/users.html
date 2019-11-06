@@ -1,0 +1,72 @@
+{% load static %}
+{% include 'partials/header.html' %}
+{% include 'partials/sidebar.html' %}
+<style>
+	.expand:hover { 
+    border:1px solid #CCCCCC;
+}
+</style>
+
+<div id="colorlib-main">
+			<aside id="colorlib-hero" class="js-fullheight">
+				<div class="flexslider js-fullheight">
+					<div class="container">
+						<div class="row" style="background-color:#DA7E1B; height:100px; text-align:center; padding-top:23px; font-size:30px; font-weight:bold;">
+							User Details
+						</div><br>
+						{% if messages %}
+							<div class="messages" align="center">
+							{% for message in messages %}
+								<div{% if message.tags %} class="{{ message.tags }}"{% endif %} style="font-size:20px; color:red; text-aign:center;">
+									{{ message }}
+								</div>
+									{% endfor %}
+							</div>
+						{% endif %}
+						<script>
+							
+							for(var i = 0; i < document.querySelectorAll('.class1').length; i += 2)
+							{
+							  document.querySelectorAll('.class1')[i].style.color = 'red';
+							}
+						</script>
+
+						{% if latest_list %}
+						<div>	
+						{% for user in latest_list %}
+						{% with count=1 %}
+							<div class="row expand">
+
+								<div class="col-xs-2" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+									<!-- <a href="/registration/{{ user.id }}/">{{ user.fname }}</a> -->
+									{{ count }}---{{user.fname }}
+								</div>
+								<div class="col-xs-2" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+									{{ user.lname }}
+								</div>
+								<div class="col-xs-2" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+									{{ user.email }}
+								</div>
+								<div class="col-xs-2">
+									{{ user.contact }}
+								</div>
+								<div class="col-xs-1">
+									<a href="/registration/edituser/{{user.id}}" style="color:#EA892E; font-weight:bold;">Edit</a>
+								</div>
+								<div class="col-xs-1">
+									<a href="/registration/deleteuser/{{user.id}}" style="color:#EA892E; font-weight:bold;" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+								</div>
+							</div>
+						{% endwith %}
+						{% endfor %}
+
+
+						</div>
+						{% else %}
+						<p>No data available</p>
+						{% endif %}
+
+</div>
+</aside>
+</div>
+{% include 'partials/footer.html' %}
