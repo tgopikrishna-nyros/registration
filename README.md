@@ -3,6 +3,7 @@ This is a web application which is used to register users and dispaly the regist
 Technologies used:
 Python-Django
 Bootstrap
+JavaScript
 MySQL
 
 Description:
